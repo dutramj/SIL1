@@ -1,0 +1,4 @@
+std_position: 0.0  # m
+std_velocity: 0.0  # m/s
+std_roll_pitch: !eq 0.0 * np.pi/180.0  # ° to rad 
+std_yaw: !eq 0.0 * np.pi/180.0  # ° to rad

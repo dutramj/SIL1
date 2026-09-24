@@ -1,0 +1,22 @@
+accel:
+    range: !eq 50.0*9.80665  # g to m/s²
+    # misalignment: !eq 0.5 * np.pi/180.0  # ° to rad
+    # scale_factor: !eq 0.5 / 100.0  # % to fraction
+    # repeatability: !eq 1.0*1e-3*9.80665  # mg to m/s²
+    bias_stability_std: !eq 1.0*1e-6*9.80665  # µg to m/s²
+    # random_walk: 7.0-07  # m/s^(5/2)
+    noise_density: !eq 70*1e-6*9.80665  # µg/√Hz to m√s/s³
+    bias_stability_tb: 500  # s
+
+gyro:
+    range: !eq 500.0 * np.pi/180.0  # °/s to rad/s
+    # misalignment: !eq 0.5 * np.pi/180.0  # ° to rad
+    # scale_factor: !eq 0.5 / 100.0  # % to fraction
+    # repeatability: !eq 1.0 * np.pi/180.0  # °/s to rad/s
+    bias_stability_std: !eq 1.0 * np.pi/180.0/3600.0  # °/h to rad/s
+    # random_walk: 5.0-07  # rad/s^(3/2)
+    # g_dependent_bias: !eq 0.001*np.pi / 180.0 / 1 / 9.80665  # # °/s/g to rad/s/m/s²
+    noise_density: !eq 0.0001 * np.pi/180.0  # °/s/√Hz to rad/s/√Hz
+    bias_stability_tb: 500  # s
+
+min_sample_time: !eq 1.0 / 200.0

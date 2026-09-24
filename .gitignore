@@ -1,0 +1,14 @@
+.idea/
+__pycache__/
+plots/*
+records/*
+!records/.gitkeep
+trajectory/*
+TODO.txt
+ann.txt
+.venv/
+*.png
+refs/*
+reports/*
+models/*
+.vscode/

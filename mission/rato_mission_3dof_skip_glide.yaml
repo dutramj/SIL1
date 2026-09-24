@@ -1,0 +1,139 @@
+simulator:
+
+  sample_period: 0.05
+
+  config_parameters: !yaml ./config_RATO.yaml
+
+  atmosphere_model:
+    type: lut # available options: lut, coesa1976
+    interpolator: !csv ../datasets/alcantara_fusion.csv
+    coesa_delta_temperature: 0.0  # [°C], temperature variation (COESA 1976 only)
+  
+  # TODO: each perturbation should be included in its respective module
+  perturbations: !yaml ./perturbations.yaml
+
+ # Wind Parameters
+  wind:
+  
+    constant_wind: # Vento constante
+      wind_speed: 0.0 # in m/s
+      wind_direction: 0.0 # 0 deg: from North, 90 deg: from East, 180 deg: from South, 270 deg: from West
+      wind_elevation: 0.0 # -90 deg: downwards, 0 deg: horizontal wind, 90 deg: upwards
+
+    # turbulence:
+    #   type: dryden
+    #   severity: moderate
+
+    # discrete_gusts: # Eventos de rajada discreta
+    #   - leading_edge_altitude_m: 500.0
+    #     half_width: 100.0 # metros
+    #     risk: 0.01
+
+    #     longitudinal: # aligned with constant_wind (ex: going West if wind_direction = 90 deg)
+    #       standard_deviation: 7.72 # m/s
+    #       length_scale: 1230.0 # metros
+
+    #     lateral:
+    #       standard_deviation: 6.00 # m/s
+    #       length_scale: 1100.0 # metros
+
+    #     vertical: # up regarding NED
+    #       standard_deviation: 6.00 # m/s
+    #       length_scale: 1100.0 # metros
+
+    #   - leading_edge_altitude_m: 1500.0
+    #     half_width: 150.0 # metros
+    #     risk: 0.005
+
+    #     longitudinal: # aligned with constant_wind (ex: going West if wind_direction = 90 deg)
+    #       standard_deviation: 5.00 # m/s
+    #       length_scale: 1000.0 # metros
+
+    #     lateral:
+    #       standard_deviation: 4.00 # m/s
+    #       length_scale: 900.0 # metros
+
+    #     vertical:: # up regarding NED
+    #       standard_deviation: 4.00 # m/s,
+    #       length_scale: 900.0 # metros
+
+mission_plan:
+
+  initial_state: !yaml ./initial_state.yaml
+
+  flight_phases:
+
+    # First stage - Open loop
+    - end_condition:
+        type: launch_tower
+        value: 30.0
+      dynamics:
+        type: 3DOF_PointMass
+      maneuver:
+        type: straight
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 1
+
+    # First stage - Pitch over
+    - end_condition:
+        type: duration
+        value: 16.0
+      maneuver:
+        type: pitch_over
+        alpha_max: 11.01405243
+        tm: 2.5
+        tp: 2.5
+
+    # First stage - Gravity turn
+    - end_condition:
+        type: time
+        value: 91.17
+      maneuver:
+        type: gravity_turn
+
+    # Second stage - With fairing
+    - end_condition:
+        type: target_gamma
+        target: 0.5
+        direction: falling
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 2
+
+    # Second stage - Without fairing
+    - end_condition:
+        type: target_gamma
+        target: -0.5
+        direction: falling
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 3
+
+    # Gravity turn
+    - end_condition:
+        type: target_gamma
+        target: -5.0
+        direction: rising
+      maneuver:
+        type: pull_up
+        alpha_max: 2.35315831
+        tm: 2.5
+        tp: 950.0
+        t2: 1000.0
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 4
+
+    # Phugoid
+    - end_condition:
+        type: duration
+        value: 20.0

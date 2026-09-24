@@ -1,0 +1,9 @@
+lat: !eq np.deg2rad(0.0)  # geodetic latitude, rad
+lon: !eq np.deg2rad(0.0)  # longitude, rad
+alt: 0.0  # altitude, m
+roll: !eq np.deg2rad(0.0)
+pitch: !eq np.deg2rad(89.999)
+yaw: !eq np.deg2rad(0.0)
+airspeed_u: 0.0
+airspeed_v: 0.0
+airspeed_w: 0.0

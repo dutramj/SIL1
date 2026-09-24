@@ -1,0 +1,125 @@
+optimizer:
+
+  algorithm:
+    pop_size: 50
+
+  n_gen: 10
+
+  objectives:
+    - type: max_final_mach
+
+  constraints:
+    - type: altitude_envelope
+      target: !eq 30e3
+      tolerance: !eq 5e1
+    - type: fairing_opening_conditions
+      max_q: !eq 1e3
+    - type: final_mach
+      lower_bound: 2.0
+      upper_bound: 10.0
+      
+  n_processes: 3
+
+simulator:
+
+  sample_period: 0.05
+
+  config_parameters: !yaml ./config_RATO.yaml
+  
+  atmosphere_model:
+    interpolator: !csv ../datasets/alcantara_fusion.csv
+  
+  # TODO: each perturbation should be included in its respective module
+  perturbations: !yaml ./perturbations.yaml
+
+ # Wind Parameters
+  wind:
+  
+    constant_wind: # Vento constante
+      wind_speed: 0.0 # in m/s
+      wind_direction: 0.0 # 0 deg: from North, 90 deg: from East, 180 deg: from South, 270 deg: from West
+      wind_elevation: 0.0 # -90 deg: downwards, 0 deg: horizontal wind, 90 deg: upwards
+
+mission_plan:
+
+  initial_state: !yaml ./initial_state.yaml
+
+  flight_phases:
+
+    # First stage - Open loop
+    - end_condition:
+        type: launch_tower
+        value: 30.0
+      dynamics:
+        type: 3DOF_PointMass
+      maneuver:
+        type: straight
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 1
+
+    # First stage - Pitch over
+    - end_condition:
+        type: duration
+        value: 10.0
+      maneuver:
+        type: pitch_over
+        alpha_max: !opt [10.0, 11.0]
+        tm: 2.5
+        tp: 2.5
+
+    # First stage - Gravity turn
+    - end_condition:
+        type: time
+        value: 90.0
+      maneuver:
+        type: gravity_turn
+
+    # Second stage - With fairing
+    - end_condition:
+        type: target_gamma
+        target: 0.0
+        direction: falling
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 2
+
+    # Second stage - Without fairing
+    - end_condition:
+        type: target_qdyn
+        target: 2000.0
+        direction: rising
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 3
+
+    # Pull-Up
+    - end_condition:
+        type: duration
+        value: 1.0
+      maneuver:
+        type: gravity_turn
+      actions:
+        - target: simulator
+          command: set_phase_id
+          arguments:
+            phase_id: 4
+
+    # Pull-Up
+    - end_condition:
+        type: target_gamma
+        target: -5.0
+        direction: rising
+      maneuver:
+        type: pull_up
+        alpha_max: !opt [2.0, 10.0]
+        tm: 2.5
+        tp: 950.0
+        t2: 1000.0
+

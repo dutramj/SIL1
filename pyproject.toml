@@ -1,0 +1,43 @@
+[project]
+name = "vahsimulator"
+version = "1.0.0"
+description = ""
+authors = [
+    {name = "Gabriel"}
+]
+readme = "README.md"
+requires-python = ">=3.10, <3.15"
+dependencies = [
+    "tqdm (>=4.67.3,<5.0.0)",
+    "numpy (>=2.2.6,<3.0.0)",
+	"pandas (>=2.3.3,<3.0.0)",
+	"scipy (>=1.15.3,<2.0.0)",
+	"matplotlib (>=3.10.8,<4.0.0)",
+	"openpyxl (>=3.1.5,<4.0.0)",
+	"numba (>=0.64.0,<0.65.0)",
+	"pyside6 (>=6.10.2,<7.0.0)",
+	"scikit-learn (>=1.7.2,<2.0.0)",
+	"pyqtgraph (>=0.14.0,<0.15.0)",
+	"colorama (>=0.4.6,<0.5.0)",
+	"typing-extensions (>=4.15.0,<5.0.0)",
+	"pyyaml (>=6.0.3,<7.0.0)",
+	"control (>=0.10.2,<0.11.0)",
+	"pydantic (>=2.13.3,<3.0.0)",
+	"pymoo (>=0.6.1.6,<0.7.0.0)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "ipykernel (>=7.3.0,<8.0.0)",
+	"black  (>=23.3.0,<24.0.0)",
+    "pytest (>=8.3.0,<9.0.0)"
+
+]
+
+[tool.black]
+line-length = 88
+skip-magic-trailing-comma = true

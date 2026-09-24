@@ -1,0 +1,4 @@
+from .linear_interpolator_1d import LinearInterpolator1D
+from .linear_interpolator_2d import LinearInterpolator2D
+from .linear_interpolator_3d import LinearInterpolator3D
+from .linear_interpolator_4d import LinearInterpolator4D

@@ -1,0 +1,395 @@
+geometric_data:
+  - phase_id: 1 # Complete Vehicle
+    main_parameters:
+      S_ref: 1.0 # Reference Area, in m²
+      l_ref_1: 1.0 # Longitudinal reference length, in m
+      l_ref_2: 1.0 # Lateral reference length, in m
+      length: 10.0 # vehicle total length, in m
+    other_parameters:
+      x_top_of_engine: 7.0 # Distance beetween datum and top-of-engine, in m - Used for computing propellant CG wrt datum
+      x_thrust: 12.0 # TVC actuation arm wrt to the datum, in m
+      nozzle_exhaust_area: 0.5 # Nozzle Exhaust Area, in m²
+  - phase_id: 2 # Intermediate stage with fairing
+    main_parameters:
+      S_ref: 1.0 # Reference Area, in m²
+      l_ref_1: 1.0 # Longitudinal reference length, in m
+      l_ref_2: 1.0 # Lateral reference length, in m
+      length: 6.0 # vehicle total length, in m
+    other_parameters:
+      x_top_of_engine: 0.0 # Distance beetween datum and top-of-engine, in m - Used for computing propellant CG wrt datum
+      x_thrust: 0.0 # TVC actuation arm wrt to the datum, in m
+      nozzle_exhaust_area: 0.0 # Nozzle Exhaust Area, in m²       
+  - phase_id: 3 # Intermediate stage with fairing
+    main_parameters:
+      S_ref: 1.0 # Reference Area, in m²
+      l_ref_1: 5.0 # Longitudinal reference length, in m
+      l_ref_2: 5.0 # Lateral reference length, in m
+      length: 5.0 # vehicle total length, in m
+    other_parameters:
+      x_top_of_engine: 0.0 # Distance beetween datum and top-of-engine, in m - Used for computing propellant CG wrt datum
+      x_thrust: 0.0 # TVC actuation arm wrt to the datum, in m
+      nozzle_exhaust_area: 0.0 # Nozzle Exhaust Area, in m²       
+  - phase_id: 4 
+    main_parameters:
+      S_ref: 0.5 # Reference Area, in m²
+      l_ref_1: 3.0 # Longitudinal reference length, in m
+      l_ref_2: 1.0 # Lateral reference length, in m
+      length: 3.0 # vehicle total length, in m
+    other_parameters:
+      x_top_of_engine: 0.0 # Distance beetween datum and top-of-engine, in m - Used for computing propellant CG wrt datum
+      x_thrust: 0.0 # TVC actuation arm wrt to the datum, in m
+      nozzle_exhaust_area: 0.0 # Nozzle Exhaust Area, in m²
+aerodecks:
+  - phase_id: 1
+    core_bank: ./datasets/aerodecks/core_bank_phase_01.csv
+    control_delta_bank: ./datasets/aerodecks/control_delta_bank_phase_01.csv
+  - phase_id: 2
+    core_bank: ./datasets/aerodecks/core_bank_phase_02.csv
+    control_delta_bank: ./datasets/aerodecks/control_delta_bank_phase_02.csv
+  - phase_id: 3
+    core_bank: ./datasets/aerodecks/core_bank_phase_03.csv
+    control_delta_bank: ./datasets/aerodecks/control_delta_bank_phase_03.csv
+  - phase_id: 4
+    core_bank: ./datasets/aerodecks/core_bank_phase_04.csv
+    control_delta_bank: ./datasets/aerodecks/control_delta_bank_phase_04.csv
+mass_properties:
+  - phase_id: 1 # Complete Vehicle
+    zero_fuel_properties:
+      x_cg: 8.0 # CG Distance from datum in the x-axis, in m
+      y_cg: 0.0 # CG Distance from datum in y-axis, in m
+      z_cg: 0.0 # CG Distance from datum in z-axis, in m
+      dry_mass: 3000.00 # Empty mass, in kg
+      dry_Ixx: 1000.0 # x-Axis moment of inertia, in km.m², not considering propellant
+      dry_Iyy: 50000.00 # y-Axis moment of inertia, in km.m², not considering propellant
+      dry_Izz: 50000.00 # z-Axis moment of inertia, in km.m², not considering propellant
+      dry_Ixy: 70.00 # x and y axes product of inertia, in km.m², not considering propellant
+      dry_Ixz: 70.00 # x and z axes product of inertia, in km.m², not considering propellant
+      dry_Iyz: -10.0 # y and z axes product of inertia, in km.m², not considering propellant
+    fuel_properties:
+      type: table # Table or values
+      file_name: ./datasets/Dataset_NominalPropellant_S50_MJ.csv
+  - phase_id: 2 # Intermediate stage with fairing
+    zero_fuel_properties:
+      x_cg: 4.0 # CG Distance from datum, in m
+      y_cg: 0.0 # CG Distance from datum in y-axis, in m
+      z_cg: 0.0 # CG Distance from datum in z-axis, in m
+      dry_mass: 1000.0 # Empty mass, in kg
+      dry_Ixx: 400.0 # x-Axis moment of inertia, in km.m², not considering propellant
+      dry_Iyy: 3000.0 # y-Axis moment of inertia, in km.m², not considering propellant
+      dry_Izz: 3000.0 # z-Axis moment of inertia, in km.m², not considering propellant
+      dry_Ixy: 8.00 # x and y axes product of inertia, in km.m², not considering propellant
+      dry_Ixz: 1.00 # x and z axes product of inertia, in km.m², not considering propellant
+      dry_Iyz: -2.00 # y and z axes product of inertia, in km.m², not considering propellant
+    fuel_properties:
+      type: values # Table or values
+      initial_values:  
+        time: 0.0 # Initial time, in s
+        mass: 0.0 # propellant initial mass, in kg
+        x_cg: 0.0 # propellant initial x-axis cg position, in m
+        y_cg: 0.0 # propellant initial y-axis cg position, in m
+        z_cg: 0.0 # propellant initial z-axis cg position, in m
+        Ixx: 0.0 # propellant x-axis initial moment of inertia, in km.m²
+        Iyy: 0.0 # propellant y-axis initial moment of inertia, in km.m²
+        Izz: 0.0 # propellant z-axis initial moment of inertia, in km.m²
+        Ixy: 0.0 # propellant x and y axes product of inertia, in km.m²
+        Ixz: 0.0 # propellant x and z axes product of inertia, in km.m²
+        Iyz: 0.0 # propellant y and z axes product of inertia, in km.m²
+      final_values:
+        time: 1000000.0 # final time, in s 
+        mass: 0.0 # propellant initial mass, in kg
+        x_cg: 0.0 # propellant initial x-axis cg position, in m
+        y_cg: 0.0 # propellant initial y-axis cg position, in m
+        z_cg: 0.0 # propellant initial z-axis cg position, in m
+        Ixx: 0.0 # propellant x-axis initial moment of inertia, in km.m²
+        Iyy: 0.0 # propellant y-axis initial moment of inertia, in km.m²
+        Izz: 0.0 # propellant z-axis initial moment of inertia, in km.m²
+        Ixy: 0.0 # propellant x and y axes product of inertia, in km.m²
+        Ixz: 0.0 # propellant x and z axes product of inertia, in km.m²
+        Iyz: 0.0 # propellant y and z axes product of inertia, in km.m²
+  - phase_id: 3 # Intermediate stage without fairing
+    zero_fuel_properties:
+      x_cg: 3.0 # CG Distance from datum, in m
+      y_cg: 0.0 # CG Distance from datum in y-axis, in m
+      z_cg: 0.0 # CG Distance from datum in z-axis, in m      
+      dry_mass: 1000.0 # Empty mass, in kg
+      dry_Ixx: 200.0 # x-Axis moment of inertia, in km.m², not considering propellant
+      dry_Iyy: 2000.0 # y-Axis moment of inertia, in km.m², not considering propellant
+      dry_Izz: 2000.0 # z-Axis moment of inertia, in km.m², not considering propellant
+      dry_Ixy: 0.5 # x and y axes product of inertia, in km.m², not considering propellant
+      dry_Ixz: 6.0 # x and z axes product of inertia, in km.m², not considering propellant
+      dry_Iyz: -2.0 # y and z axes product of inertia, in km.m², not considering propellant
+    fuel_properties:
+      type: values # Table or values
+      initial_values:  
+        time: 0.0 # Initial time, in s
+        mass: 0.0 # propellant initial mass, in kg
+        x_cg: 0.0 # propellant initial x-axis cg position, in m
+        y_cg: 0.0 # propellant initial y-axis cg position, in m
+        z_cg: 0.0 # propellant initial z-axis cg position, in m
+        Ixx: 0.0 # propellant x-axis initial moment of inertia, in km.m²
+        Iyy: 0.0 # propellant y-axis initial moment of inertia, in km.m²
+        Izz: 0.0 # propellant z-axis initial moment of inertia, in km.m²
+        Ixy: 0.0 # propellant x and y axes product of inertia, in km.m²
+        Ixz: 0.0 # propellant x and z axes product of inertia, in km.m²
+        Iyz: 0.0 # propellant y and z axes product of inertia, in km.m²
+      final_values:
+        time: 1000000.0 # final time, in s 
+        mass: 0.0 # propellant initial mass, in kg
+        x_cg: 0.0 # propellant initial x-axis cg position, in m
+        y_cg: 0.0 # propellant initial y-axis cg position, in m
+        z_cg: 0.0 # propellant initial z-axis cg position, in m
+        Ixx: 0.0 # propellant x-axis initial moment of inertia, in km.m²
+        Iyy: 0.0 # propellant y-axis initial moment of inertia, in km.m²
+        Izz: 0.0 # propellant z-axis initial moment of inertia, in km.m²
+        Ixy: 0.0 # propellant x and y axes product of inertia, in km.m²
+        Ixz: 0.0 # propellant x and z axes product of inertia, in km.m²
+        Iyz: 0.0 # propellant y and z axes product of inertia, in km.m²
+  - phase_id: 4 #
+    zero_fuel_properties:
+      x_cg: 2.0 # CG Distance from datum, in m
+      y_cg: 0.0 # CG Distance from datum in y-axis, in m
+      z_cg: 0.2 # CG Distance from datum in z-axis, in m      
+      dry_mass: 800.0 # Empty mass, in kg
+      dry_Ixx: 70.0 # x-Axis moment of inertia, in km.m², not considering propellant
+      dry_Iyy: 600.0 # y-Axis moment of inertia, in km.m², not considering propellant
+      dry_Izz: 600.0 # z-Axis moment of inertia, in km.m², not considering propellant
+      dry_Ixy: 0.0 # x and y axes product of inertia, in km.m², not considering propellant
+      dry_Ixz: -40.0 # x and z axes product of inertia, in km.m², not considering propellant
+      dry_Iyz: 0.0 # y and z axes product of inertia, in km.m², not considering propellant
+    fuel_properties:
+      type: values # Table or values
+      initial_values:  
+        time: 0.0 # Initial time, in s
+        mass: 0.0 # propellant initial mass, in kg
+        x_cg: 0.0 # propellant initial x-axis cg position, in m
+        y_cg: 0.0 # propellant initial y-axis cg position, in m
+        z_cg: 0.0 # propellant initial z-axis cg position, in m
+        Ixx: 0.0 # propellant x-axis initial moment of inertia, in km.m²
+        Iyy: 0.0 # propellant y-axis initial moment of inertia, in km.m²
+        Izz: 0.0 # propellant z-axis initial moment of inertia, in km.m²
+        Ixy: 0.0 # propellant x and y axes product of inertia, in km.m²
+        Ixz: 0.0 # propellant x and z axes product of inertia, in km.m²
+        Iyz: 0.0 # propellant y and z axes product of inertia, in km.m²
+      final_values:
+        time: 1000000.0 # final time, in s 
+        mass: 0.0 # propellant initial mass, in kg
+        x_cg: 0.0 # propellant initial x-axis cg position, in m
+        y_cg: 0.0 # propellant initial y-axis cg position, in m
+        z_cg: 0.0 # propellant initial z-axis cg position, in m
+        Ixx: 0.0 # propellant x-axis initial moment of inertia, in km.m²
+        Iyy: 0.0 # propellant y-axis initial moment of inertia, in km.m²
+        Izz: 0.0 # propellant z-axis initial moment of inertia, in km.m²
+        Ixy: 0.0 # propellant x and y axes product of inertia, in km.m²
+        Ixz: 0.0 # propellant x and z axes product of inertia, in km.m²
+        Iyz: 0.0 # propellant y and z axes product of inertia, in km.m²
+propulsion_properties:
+  - phase_id: 1 # Complete Vehicle
+    propulsion_curve:
+      type: curve # curve or values
+      file_name: ./datasets/Dataset_NominalThrust_S50_MJ.csv
+  - phase_id: 2 # Intermediate stage with fairing
+    propulsion_curve:
+      type: values
+      initial_values:
+        time: 0.0
+        thrust: 0.0
+      final_values:
+        time: 1000000.0
+        thrust: 0.0
+  - phase_id: 3 # Intermediate stage without fairing
+    propulsion_curve:
+      type: values
+      initial_values:
+        time: 0.0
+        thrust: 0.0
+      final_values:
+        time: 1000000.0
+        thrust: 0.0
+  - phase_id: 4 
+    propulsion_curve:
+      type: values
+      initial_values:
+        time: 0.0
+        thrust: 0.0
+      final_values:
+        time: 1000000.0
+        thrust: 0.0 
+rcs_parameters:
+  - phase_id: 1 # Complete Vehicle
+    rcs_long_arm: 6.0 # RCS longitudinal arm wrt to the datum, in m
+    rcs_lat_arm: 1.0 # RCS lateral arm wrt to the datum, in m
+    rcs_compute_initial_mass: No # If No, initial mass is considered as the one declared in this file, else, it's computed based on previous values.
+    rcs_initial_mass: 100.0 # RCS Initial Mass, in kg
+    rcs_Isp: 60.0 # RCS Specific Impulse, in s
+    rcs_F_max: 100.0 # RCS thrusters maximum force for roll / pitch / yaw control, in N
+    rcs_F_min: 0.0 # RCS thrusters minimum force for roll / pitch / yaw control, in N
+    rcs_deadband: 0.5 # deadband for RCS control, in deg
+    rcs_hysteresis: 0.1 # hysteresis for RCS control, in deg
+    rcs_tau: 1.0 # RCS time constant, in s
+    rcs_min_pulse: 0.03 # RCS minimum pulse duration, in s
+    rcs_delay: 0.03 # delay for RCS control, in s
+    rcs_min_alt: 50000.0 # Minimum altitude for considering RCS actuation
+  - phase_id: 2 # Intermediate Stage with faring
+    rcs_long_arm: 6.0 # RCS longitudinal arm wrt to the datum, in m
+    rcs_lat_arm: 1.0 # RCS lateral arm wrt to the datum, in m
+    rcs_compute_initial_mass: Yes # If No, initial mass is considered as the one declared in this file, else, it's computed based on previous values.
+    rcs_initial_mass: 100.0 # RCS Initial Mass, in kg
+    rcs_Isp: 60.0 # RCS Specific Impulse, in s
+    rcs_F_max: 100.0 # RCS thrusters maximum force for roll / pitch / yaw control, in N
+    rcs_F_min: 0.0 # RCS thrusters minimum force for roll / pitch / yaw control, in N
+    rcs_deadband: 0.3 # deadband for RCS control, in deg
+    rcs_hysteresis: 0.1 # hysteresis for RCS control, in deg
+    rcs_tau: 1.0 # RCS time constant, in s
+    rcs_min_pulse: 0.03 # RCS minimum pulse duration, in s
+    rcs_delay: 0.03 # delay for RCS control, in s
+    rcs_min_alt: 50000.0 # Minimum altitude for considering RCS actuation
+  - phase_id: 3 # Intermediate stage without fairing
+    rcs_long_arm: 5.0 # RCS longitudinal arm wrt to the datum, in m
+    rcs_lat_arm: 1.0 # RCS lateral arm wrt to the datum, in m
+    rcs_compute_initial_mass: Yes # If No, initial mass is considered as the one declared in this file, else, it's computed based on previous values.
+    rcs_initial_mass: 100.0 # RCS Initial Mass, in kg
+    rcs_Isp: 60.0 # RCS Specific Impulse, in s
+    rcs_F_max: 100.0 # RCS thrusters maximum force for roll / pitch / yaw control, in N
+    rcs_F_min: 0.0 # RCS thrusters minimum force for roll / pitch / yaw control, in N
+    rcs_deadband: 0.3 # deadband for RCS control, in deg
+    rcs_hysteresis: 0.1 # hysteresis for RCS control, in deg
+    rcs_tau: 1.0 # RCS time constant, in s
+    rcs_min_pulse: 0.03 # RCS minimum pulse duration, in s
+    rcs_delay: 0.03 # delay for RCS control, in s
+    rcs_min_alt: 50000.0 # Minimum altitude for considering RCS actuation
+  - phase_id: 4 
+    rcs_long_arm: 0.0 # RCS longitudinal arm wrt to the datum, in m
+    rcs_lat_arm: 0.0 # RCS lateral arm wrt to the datum, in m
+    rcs_compute_initial_mass: No # If No, initial mass is considered as the one declared in this file, else, it's computed based on previous values.
+    rcs_initial_mass: 0.0 # RCS Initial Mass, in kg
+    rcs_Isp: 0.0 # RCS Specific Impulse, in s
+    rcs_F_max: 0.0 # RCS thrusters maximum force for roll / pitch / yaw control, in N
+    rcs_F_min: 0.0 # RCS thrusters minimum force for roll / pitch / yaw control, in N
+    rcs_deadband: 0.0 # deadband for RCS control, in deg
+    rcs_hysteresis: 0.0 # hysteresis for RCS control, in deg
+    rcs_tau: 0.0 # RCS time constant, in s
+    rcs_min_pulse: 0.0 # RCS minimum pulse duration, in s
+    rcs_delay: 0.0 # delay for RCS control, in s
+    rcs_min_alt: 0.0 # Minimum altitude for considering RCS actuations
+    
+control_surfaces_set:
+  actuator:
+    natural_frequency: 100.0
+    damping_ratio: 0.7
+    nonlinearities:
+      - type: velocity_limiter
+        maximum_velocity: 1.0 # rad/s, aprox. ?? rpm, comes from actuator datasheet
+      - type: velocity_dependent_acceleration_limiter # 
+        velocity_lut: # rotation (rad/s)
+        - 0.0
+        - 4000.0
+        acceleration_lut: # continuous_torque/inertia (rad/s² or Nm/Kg/m³)
+        - 100.0
+        - 0.0
+    
+tvc_parameters:
+
+  - phase_id: 1 # Complete Vehicle
+    type: tvc_simplified # must be: "tvc_simplified" or "tvc_detailed"
+    max_tvc_deflect: 10.0 # Maximum TVC deflection, in deg
+    max_tvc_rate: 100.0 # Maximum TVC deflection rate, in deg/s
+
+    geometry: # position in relation to divergent pivot point
+      structure_joint_x: 0.5 # rotational joint actuator-airframe, in meters
+      initial_nozzle_joint_x: 0.2 # rotational joint divergent-actuator when delta=0, in meters
+      initial_nozzle_joint_y: -0.2 # rotational joint divergent-actuator when delta=0, in meters
+      initial_actuator_angle: 50.0 # angle between actuator and longitudinal axis when delta=0, in degrees
+
+    belt:
+      reduction_ratio: 2.0 # N:1 belt reduction between linear and angular actuators, adimensional
+   
+    angular_actuator:
+      natural_frequency: 100.0 # dummy value, to be updated with identification essay
+      damping_ratio: 0.7 # dummy value, to be updated with identification essay
+      nonlinearities:
+        - type: velocity_limiter
+          maximum_velocity: 100.0 # rad/s, aprox. ? rpm, / 2.0 comes from linear actuator datasheet
+        - type: velocity_dependent_acceleration_limiter
+          velocity_lut: # rotation (rad/s)
+          - 0.0
+          - 4000.0
+          acceleration_lut: # continuous_torque/inertia (rad/s² or Nm/Kg/m³)
+          - 1000000.0
+          - 0.0
+
+    linear_actuator:
+      natural_frequency: 100.0  # dummy value, to be updated with identification essay
+      damping_ratio: 0.7 # dummy value, to be updated with identification essay
+      lead: 0.01 # meters
+      nonlinearities:
+        - type: position_limiter
+          maximum_position: 0.01 # meters (roughly ? degrees TVC deflexion according to TVC geometry)
+        - type: acceleration_limiter
+          maximum_acceleration: 10.0 # m/s²
+          
+  - phase_id: 2 # Second stage with fairing
+    max_tvc_deflect: 0.0 # Maximum TVC deflection for TVC control module, in deg
+    max_tvc_rate: 0.0 # Maximum TVC deflection rate, in deg/s
+  - phase_id: 3 # Second stage without fairing
+    max_tvc_deflect: 0.0 # Maximum TVC deflection for TVC control module, in deg
+    max_tvc_rate: 0.0 # Maximum TVC deflection rate, in deg/s
+  - phase_id: 4 
+    max_tvc_deflect: 0.0 # Maximum TVC deflection for TVC control module, in deg
+    max_tvc_rate: 0.0 # Maximum TVC deflection rate, in deg/s
+
+aero_controls_parameters:
+  - phase_id: 1
+    max_deflection: 20.0 # Maximum deflection for aerodynamic control surfaces, in deg
+    max_rate: 60.0 # Maximum deflection rate for aerodynamic control surfaces, in deg/s
+    control_surface_type: 0  # Configuration type: 0 - 4 CS in X; 1 - Elevons;
+    control_roll: Yes # Flag to allow roll control
+    control_rate: No # Flag to allow pitch / yaw rate control (damper)
+    control_gamma: No # Flag to allow flight path angle control
+    control_heading: No # Flag to allow heading control
+    tvc_factor: No # Flag for tvc computation
+    use_ref_heading: No # Flag for using heading reference in roll control (bank to turn)
+    wn_rc: 2.0 # Closed loop frequency
+    zeta_rc: 0.7 # Damping factor
+  - phase_id: 2
+    max_deflection: 20.0 # Maximum deflection for aerodynamic control surfaces, in deg
+    max_rate: 60.0 # Maximum deflection rate for aerodynamic control surfaces, in deg/s
+    control_surface_type: 0 # Configuration type: 0 - 4 CS in X; 1 - Elevons;
+    control_roll: Yes # Flag to allow roll control
+    control_rate: Yes # Flag to allow pitch / yaw rate control (damper)
+    control_gamma: No # Flag to allow flight path angle control
+    control_heading: No # Flag to allow heading control
+    tvc_factor: No # Flag for tvc computation
+    use_ref_heading: No # Flag for using heading reference in roll control (bank to turn)
+    wn_rc: 2.0 # Closed loop frequency
+    zeta_rc: 0.7 # Damping factor    
+  - phase_id: 3
+    max_deflection: 20.0 # Maximum deflection for aerodynamic control surfaces, in deg
+    max_rate: 60.0 # Maximum deflection rate for aerodynamic control surfaces, in deg/s
+    control_surface_type: 0 # Configuration type: 0 - 4 CS in X; 1 - Elevons;
+    control_roll: Yes # Flag to allow roll control
+    control_rate: Yes # Flag to allow pitch / yaw rate control (damper)
+    control_gamma: No # Flag to allow flight path angle control
+    control_heading: No # Flag to allow heading control
+    tvc_factor: No # Flag for tvc computation
+    use_ref_heading: No # Flag for using heading reference in roll control (bank to turn)    
+    wn_rc: 2.0 # Closed loop frequency
+    zeta_rc: 0.7 # Damping factor  
+  - phase_id: 4
+    max_deflection: 20.0 # Maximum deflection for aerodynamic control surfaces, in deg
+    max_rate: 60.0 # Maximum deflection rate for aerodynamic control surfaces, in deg/s
+    control_surface_type: 1 # Configuration type: 0 - 4 CS in X; 1 - Elevons;
+    control_roll: Yes # Flag to allow roll control
+    control_rate: No # Flag to allow pitch / yaw rate control (damper)
+    control_gamma: Yes # Flag to allow flight path angle control
+    control_heading: Yes # Flag to allow heading control
+    tvc_factor: No # Flag for tvc computation
+    use_ref_heading: Yes # Flag for using heading reference in roll control (bank to turn)
+    wn_rc: 5.0 # Closed loop frequency
+    zeta_rc: 0.7 # Damping factor    
+control_interlocks:
+  - transition_time: 60.0 # Transition time from acceleration control to load alleviation, in s
+    burnout_time: 70.0 #  Effective burn time, in s   
+    action_time: 90.0 # Total burn time, in s
+guidance_parameters:
+  - max_turn_rate: 0.1 # Maximum allowed turn rate for guidance logic
+    max_acceleration: 3.0 # Maximum allowed normal acceleration for guidance logic
